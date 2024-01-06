@@ -1,0 +1,23 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "简单的计划清单，点击时钟部位切换背景图。",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Anime" ],
+	"title" : "Todo List",
+	"type" : "web",
+	"visibility" : "public"
+}

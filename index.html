@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://rafaeldejongh.github.io/Rafael-CSS-Reset/reset.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./js/vue.js"></script>
+    <style>
+        @charset "utf-8";
+        /*Content Table:
+------------------
+- Body
+	- Content
+  - Forms
+- FadeInOnLoad
+- MediaQueries
+- Links
+- Scrollbar
+- Selection
+
+Body
+------------------*/
+
+        body {
+            width: 100%;
+            min-height: 100%;
+            color: #111;
+            background-color: #eee;
+            /* background-image: url("./2.jpg"); */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+            overflow: hidden;
+            transition: background-image 0.5s ease-in-out;
+            font-family: "小赖字体 SC";
+        }
+
+        /*Content
+-------------*/
+
+        h1 {
+            color: #fff;
+            margin-bottom: .6em;
+            font-variant: small-caps;
+            font-size: 2.5em;
+        }
+
+        main::before {
+            content: "";
+            display: inline-block;
+            width: 110%;
+            min-height: 110%;
+            position: absolute;
+            z-index: -1;
+            left: -5px;
+            top: -5px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='5');
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+            overflow: hidden;
+        }
+
+        main {
+            width: 50%;
+            min-height: 30%;
+            max-height: 1600px;
+            max-width: 600px;
+            top: 10%;
+            left: 25%;
+            right: 25%;
+            position: absolute;
+            margin: auto;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .6);
+            border: 1px solid rgba(255, 255, 255, .1);
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all .3s ease;
+            overflow: hidden;
+            /*background blur filter*/
+            backdrop-filter: blur(25px);
+        }
+
+        main:hover {
+            box-shadow: 0 10px 32px rgba(0, 0, 0, .7)
+        }
+
+        /*Forms
+-------------*/
+
+        #input {
+            padding: 0px
+        }
+
+        button {
+            transition: all .3s ease
+        }
+
+        input {
+            padding: 14px 10px;
+            border-radius: 4px 4px 4px 4px;
+            width: 75%;
+            outline: none;
+            border: none
+        }
+
+        #submit {
+            margin-left: 0px;
+            background-color: #4CAF50;
+            color: #fff;
+            width: 18%;
+            cursor: pointer;
+            padding: 14px 20px;
+            border-radius: 4px 4px 4px 4px;
+            transition: .2s ease;
+        }
+
+        #submit:hover {
+            background-color: #45a049
+        }
+
+        #todolist {
+            margin: 1em auto;
+            padding: 0 8px;
+            overflow-y: auto;
+            max-height: 63vh;
+        }
+
+        ul li {
+            background-color: #fff;
+            border-radius: 4px;
+            color: #aaa;
+            text-align: left;
+            padding: 12px 20px;
+            margin: .5em auto;
+            width: 100%;
+            word-break: keep-all;
+            list-style: none
+        }
+
+        .todoC {
+            background: #fff3e0;
+            text-decoration: line-through;
+            color: #b00
+        }
+
+        .todoC:hover {
+            color: #c80000
+        }
+
+        .todoR {
+            opacity: 0;
+            visibility: hidden;
+            float: right;
+            background: #b00;
+            color: #fff;
+            border-radius: 4px;
+            margin-top: -4px;
+            padding: .3em .45em
+        }
+
+        .todoR:hover {
+            background: #c80000
+        }
+
+        ul li:hover .todoR {
+            opacity: 1;
+            visibility: visible
+        }
+
+        #info {
+            position: relative;
+            padding: 0 8px
+        }
+
+        #remaining {
+            margin: auto;
+            width: 100%;
+            background-color: #099;
+            border-radius: 4px;
+            padding: 5px 0;
+            color: #fff;
+        }
+
+        #clear {
+            border-radius: 4px;
+            background-color: #900;
+            padding: 5px 0;
+            margin: .6em auto 0;
+            width: calc(100% - 16px);
+            display: inline-block;
+            cursor: pointer;
+            z-index: 999;
+            color: #fff;
+            border: none;
+            position: absolute;
+            top: -12px;
+            left: 8px
+        }
+
+        #clear:hover {
+            background: #c80000
+        }
+
+        /*FadeInOnLoad
+------------------*/
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @-moz-keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        main {
+            opacity: 0;
+            -webkit-animation: fadeIn ease-in 1;
+            -moz-animation: fadeIn ease-in 1;
+            animation: fadeIn ease-in 1;
+            -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-duration: .5s;
+            -moz-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-delay: .4s;
+            -moz-animation-delay: .4s;
+            animation-delay: .4s;
+        }
+
+        /*MediaQueries
+------------------*/
+
+        @media screen and (max-width:770px) {
+            main {
+                width: 80%;
+                height: auto;
+                margin: auto;
+                display: inline-block;
+                left: 10%
+            }
+        }
+
+        @media screen and (max-width:480px) {
+            main {
+                width: 100%;
+                height: 100%;
+                margin: auto;
+                max-height: initial;
+                top: 0;
+                left: 0
+            }
+            #todolist {
+                max-height: 68vh
+            }
+        }
+
+        @media screen and (max-width:385px) {
+            h1 {
+                font-size: 8vw
+            }
+            input {
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                text-align: center;
+                width: 100%
+            }
+            #submit {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 4px;
+                border-bottom-left-radius: 4px;
+                margin: auto;
+                width: 100%
+            }
+        }
+
+        /*Links
+-------------*/
+
+        a,
+        a:visited {
+            color: #111;
+            text-decoration: none;
+            -webkit-transition: all .2s ease;
+            -moz-transition: all .2s ease;
+            -o-transition: all .2s ease;
+            transition: all .2s ease
+        }
+
+        a:active,
+        a:hover {
+            color: #555
+        }
+
+        /*Scrollbar
+-------------*/
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(0, 0, 0, .05);
+            border-radius: 5em
+        }
+
+        ::-webkit-scrollbar-corner {
+            background-color: rgba(0, 0, 0, .05)
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: rgba(0, 0, 0, .05);
+            border-radius: 5em
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #099;
+            border-radius: 5em
+        }
+
+        ::-webkit-scrollbar:horizontal {
+            height: 12px
+        }
+
+        /*Selection
+-------------*/
+
+        ::selection {
+            color: #fff;
+            background-color: #099
+        }
+
+        ::-moz-selection {
+            color: #fff;
+            background-color: #099
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body id="bg" @click="changeBg" :style="backgroundImage: 'url(' + img + ')'">
+    <main id="todo">
+        <section id="input">
+            <h1 class="clock"></h1>
+            <input type="text" @click="foo" @keyup.enter="addTodo" v-model="newTodo" placeholder="新增一个任务" title="新增一个任务!" required/>
+            <button id="submit" @click="addTodo">新增</button>
+        </section>
+        <ul id="todolist">
+            <li v-for="(todo,index) in todos" :class="{'todoC':todo.completed}" @click="todo.completed=!todo.completed">
+                {{todo.task}}
+                <button class="todoR fa fa-times" @click.stop="removeTodo(index)"></button>
+            </li>
+        </ul>
+        <div id="info">
+            <p id="remaining">{{itemsTodo.length}} 个等待的任务!</p>
+            <!--<a href="#" id="clear" @click.prevent="clearCompleted" v-show="itemsDone.length">清除已完成的任务</a>-->
+        </div>
+    </main>
+</body>
+
+<script>
+    //Local Storage
+    var todoStorage = {
+        fetch: function () {
+            var todos = JSON.parse(localStorage.getItem("todosVJS") || "[]");
+            return todos;
+        },
+        save: function (todos) {
+            localStorage.setItem("todosVJS", JSON.stringify(todos));
+        }
+    };
+
+    //Vue Init
+    var ToDoList = new Vue({
+        el: "#todo",
+        //Data
+        data: {
+            todos: todoStorage.fetch(),
+            newTodo: "",
+        },
+        //Watch ToDo's for localStorage
+        watch: {
+            todos: {
+                handler: function (todos) {
+                    todoStorage.save(todos);
+                },
+                deep: true
+            }
+        },
+
+        //ToDolist Computed
+        computed: {
+            itemsDone: function itemsDone() {
+                return this.todos.filter(function (todo) {
+                    return todo.completed;
+                });
+            },
+            itemsTodo: function itemsTodo() {
+                return this.todos.filter(function (todo) {
+                    return !todo.completed;
+                });
+            }
+        },
+        //ToDoList Methods
+        methods: {
+            foo: function foo() {
+                var plan = window.prompt("请输入你的计划");
+                this.newTodo = plan;
+            },
+
+
+            addTodo: function addTodo() {
+                var newEntry = {
+                    task: this.newTodo,
+                    completed: false
+                };
+                if (this.newTodo.length) {
+                    this.todos.push(newEntry);
+                    this.newTodo = "";
+                    localStorage.setItem("todos", JSON.stringify(ToDoList.data.todos));
+                }
+            },
+            removeTodo: function removeTodo(index) {
+                this.todos.splice(index, 1);
+            },
+            clearCompleted: function clearCompleted() {
+                this.todos = this.itemsTodo;
+            }
+        }
+    });
+    //End
+</script>
+
+<script>
+    function clock() { // We create a new Date object and assign it to a variable called "time".
+        var time = new Date(),
+
+            // Access the "getHours" method on the Date object with the dot accessor.
+            hours = time.getHours(),
+
+            // Access the "getMinutes" method with the dot accessor.
+            minutes = time.getMinutes(),
+
+
+            seconds = time.getSeconds();
+
+        document.querySelectorAll('.clock')[0].innerHTML = "<p style=" + "font-size:25px;" + ">时间的旅者，无痕的过客</p>" + harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+
+        function harold(standIn) {
+            if (standIn < 10) {
+                standIn = '0' + standIn
+            }
+            return standIn;
+        }
+    }
+    setInterval(clock, 1000);
+
+    var imgSrc = ["img/3.jpg", "img/no-black.jpg"];
+    // var imgSrc = ["img/3.jpg"];
+    var body = document.body;
+    var index = 0;
+    var date = new Date();
+    var hour = date.getHours();
+    index = (hour < 18) ? 0 : 1;
+    body.style.backgroundImage = "url(" + imgSrc[index] + ")";
+    setInterval(function() {
+        // get time
+        var date = new Date();
+        var hour = date.getHours();
+        // select img
+        index = (hour < 18) ? 0 : 1;
+        // set img
+        body.style.backgroundImage = "url(" + imgSrc[index] + ")";
+    }, 60000); // pre 60 seconds
+
+    // var todo = document.querySelector(".clock");
+    /*todo.onclick = function () {
+        if (index == imgSrc.length - 1) {
+            index = -1
+        };
+        index++;
+        body.style.backgroundImage = "url(" + imgSrc[index] + ")";
+    };*/
+</script>
+
+</html>
